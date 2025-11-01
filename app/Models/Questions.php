@@ -10,6 +10,11 @@ class Questions extends Model
     /** @use HasFactory<\Database\Factories\QuestionsFactory> */
     use HasFactory;
 
+    public function answers()
+    {
+        return $this->hasMany(Answer::class);
+    }
+
     public function category()
     {
         return $this->belongsTo(Category::class);
