@@ -1,6 +1,6 @@
 <x-forum.layouts.app>
     <div class="flex items-center gap-2 w-full my-8">
-        <div>&hearts;</div>
+        <livewire:heart :heartable='$questions' />
 
         <div class="w-full">
             <h2 class="text-2xl font-bold md:text-3xl">
@@ -35,40 +35,14 @@
         <p class="text-gray-200">
            {{ $questions->description }}
         </p>
-
-        <ul class="my-4 space-y-2">
-    
-            @foreach ($questions->comments as $comment)
-
-            <li class="flex items-center gap-2">
-                <p class="text-xs bg-white/10 p-4 rounded-md">
-                    <span class="text-gray-500">
-                        {{ $comment->user->name }} | 
-                        {{ $comment->created_at->diffForHumans() }}
-                    </span>
-                    <span class="text-gray-300">
-                        {{ $comment->content }}
-                    </span>
-                </p>
-
-                <div>&hearts;</div>
-            </li>
-            @endforeach
-
-        </ul>
-
-        <p class="text-gray-500">
-            <a href="#" class="rounded-md text-xs hover:underline cursor-pointer">
-                Agregar comentario
-            </a>
-        </p>    
+        <livewire:comment :commentable="$questions" />
     </div>
     
     <ul class="space-y-4">
         @foreach ($questions->answers as $answer)
         <li>
             <div class="flex items-st art gap-2">
-                <div>&hearts;</div>
+                <livewire:heart :heartable='$answer' />
 
                 <div>
                     <p class="text-sm text-gray-300">
@@ -78,36 +52,27 @@
                         {{ $answer->user->name }}
                         | {{ $answer->created_at->diffForHumans() }}
                     </p>
-                    
-                    <ul class="my-4 space-y-2">
-    
-                        @foreach ($answer->comments as $comment)
-
-                        <li class="flex items-center gap-2">
-                            <p class="text-xs bg-white/10 p-4 rounded-md">
-                                <span class="text-gray-500">
-                                    {{ $comment->user->name }} | 
-                                    {{ $comment->created_at->diffForHumans() }}
-                                </span>
-                                <span class="text-gray-300">
-                                    {{ $comment->content }}
-                                </span>
-                            </p>
-
-                            <div>&hearts;</div>
-                        </li>
-                        @endforeach
-
-                    </ul>
-
-                    <p class="text-gray-500">
-                        <a href="#" class="rounded-md text-xs hover:underline cursor-pointer">
-                            Agregar comentario
-                        </a>
-                    </p>
+                    <livewire:comment :commentable="$answer" />    
                 </div>
             </div>  
         </li>  
         @endforeach
     </ul>
+
+    <div class="mt-8">
+        <h3 class="text-lg font-semibold mb-2">Tu Respuesta...</h3>
+
+        <form action="{{ route('answers.store', $questions) }}" method="POST">
+            @csrf
+
+            <div class="mb-2">
+                <textarea name="content" rows="6" class="w-full p-2 border rounded-md text-xs" required></textarea>
+                @error('content')<span class="block text-red-500 text-xs">{{ $message }}</span>@enderror
+            </div>
+
+            <button type="submit" class="rounded-md bg-blue-600 hover:bg-blue-500 px-4 py-2 text-white cursor-pointer">
+                Enviar Respuesta
+            </button>
+        </form>
+    </div>
 </x-forum.layouts.app>
