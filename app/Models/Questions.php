@@ -4,11 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Traits\HasHearts;
 
 class Questions extends Model
 {
     /** @use HasFactory<\Database\Factories\QuestionsFactory> */
-    use HasFactory;
+    use HasFactory, HasHearts;
 
     public function answers()
     {
@@ -30,23 +31,26 @@ class Questions extends Model
         return $this->morphMany(Comment::class, 'commentable');
     }
 
-    public function hearts()
+    protected static function booted()
     {
-        return $this->morphMany(Heart::class, 'heartable');
-    }
+        static::deleting(function ($question){
+            $question->hearts()->delete();
 
-    public function isHearted()
-    {
-        return $this->hearts()->where('user_id', 12)->exists();
-    }
+            $question->comments()->get()->each(function ($comment){
+                $comment->hearts()->delete();
+                $comment->delete();
+            });
 
-    public function heart()
-    {
-        $this->hearts()->create(['user_id' => 12]);
-    }
+            $question->answers()->get()->each(function ($answer){
+                $answer->hearts()->delete();
 
-    public function unheart()
-    {
-        $this->hearts()->where(['user_id', 12])->delete();
+                $answer->comments()->get()->each(function ($comment){
+                    $comment->hearts()->delete();
+                    $comment->delete();
+                });
+
+
+            });
+        });
     }
 }
