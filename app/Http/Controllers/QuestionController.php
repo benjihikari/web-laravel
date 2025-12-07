@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Questions;
+use App\Models\Category;
+
+use Illuminate\Support\Facades\Auth;
 
 class QuestionController extends Controller
 {
@@ -19,6 +22,60 @@ class QuestionController extends Controller
         return view('questions.index', [
             'questions' => $questions
         ]);
+    }
+
+    public function create()
+    {
+        $categories = Category::all();
+
+        return view('questions.create', [
+            'categories' => $categories
+        ]);
+    }
+
+    public function store(Request $request)
+    {
+        $request->validate([
+            'category_id' => 'required|exists:categories,id',
+            'title'       => 'required|string|max:255',
+            'description' => 'required|string',
+        ]);
+
+        $question = Questions::create([
+            'user_id'       => 12,
+            'category_id'   => $request->category_id,
+            'title'         => $request->title,
+            'description'   => $request->description,
+        ]);
+
+        return redirect()->route('questions.show', $question);
+    }
+
+    public function edit(Questions $question)
+    {
+        $categories = Category::all();
+
+        return view('questions.edit', [
+            'question' => $question,
+            'categories' => $categories
+        ]);
+    }
+
+    public function update(Request $request, Questions $question)
+    {
+        $request->validate([
+            'category_id' => 'required|exists:categories,id',
+            'title'       => 'required|string|max:255',
+            'description' => 'required|string',
+        ]);
+
+        $question->update([
+            'category_id'   => $request->category_id,
+            'title'         => $request->title,
+            'description'   => $request->description,
+        ]);
+
+        return redirect()->route('questions.show', $question);
     }
 
     public function show(Questions $question)

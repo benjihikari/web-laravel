@@ -11,6 +11,13 @@ class Questions extends Model
     /** @use HasFactory<\Database\Factories\QuestionsFactory> */
     use HasFactory, HasHearts;
 
+    protected $fillable = [
+        'user_id',
+        'category_id',
+        'title',
+        'description',
+    ];
+
     public function answers()
     {
         return $this->hasMany(Answer::class);
