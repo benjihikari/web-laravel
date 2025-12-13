@@ -15,7 +15,7 @@ class AnswerController extends Controller
 
         $question->answers()->create([
             'content'=>$request->content,
-            'user_id'=>12,
+            'user_id'=>auth()->id(),
         ]);
 
         return back();

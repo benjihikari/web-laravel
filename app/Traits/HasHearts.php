@@ -16,16 +16,16 @@ trait HasHearts {
             return $this->hearts->isNotEmpty();
         }
 
-        return $this->hearts()->where('user_id', 12)->exists();
+        return $this->hearts()->where('user_id', auth()->id())->exists();
     }
     
     public function heart()
     {
-        $this->hearts()->create(['user_id' => 12]);
+        $this->hearts()->create(['user_id' => auth()->id()]);
     }
     
     public function unheart()
     {
-        $this->hearts()->where(['user_id', 12])->delete();
+        $this->hearts()->where(['user_id', auth()->id()])->delete();
     }
 }

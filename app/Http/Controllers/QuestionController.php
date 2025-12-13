@@ -42,7 +42,7 @@ class QuestionController extends Controller
         ]);
 
         $question = Questions::create([
-            'user_id'       => 12,
+            'user_id'       => auth()->id(),
             'category_id'   => $request->category_id,
             'title'         => $request->title,
             'description'   => $request->description,
@@ -80,7 +80,7 @@ class QuestionController extends Controller
 
     public function show(Questions $question)
     {
-        $userId = 12;
+        $userId = auth()->id();
         $question->load([
             'user',
             'category',
