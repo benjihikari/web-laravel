@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a94804f04d2b2b5481022e4189b2407f",
+    "content-hash": "6e45e84f6d46394ae48827e31221eaf6",
     "packages": [
         {
             "name": "bacon/bacon-qr-code",
@@ -1155,6 +1155,66 @@
                 }
             ],
             "time": "2025-08-22T14:27:06+00:00"
+        },
+        {
+            "name": "italofantone/sluggable",
+            "version": "v2.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/italofantone/sluggable.git",
+                "reference": "3361f6afb61a88d929e6560f2999f716edb9197c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/italofantone/sluggable/zipball/3361f6afb61a88d929e6560f2999f716edb9197c",
+                "reference": "3361f6afb61a88d929e6560f2999f716edb9197c",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/database": "^10.0|^11.0|^12.0",
+                "illuminate/support": "^10.0|^11.0|^12.0",
+                "php": "^8.1"
+            },
+            "require-dev": {
+                "orchestra/testbench": "^9.2",
+                "phpunit/phpunit": "^11.3"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Italofantone\\Sluggable\\SluggableServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Italofantone\\Sluggable\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Italo Morales Fantone",
+                    "email": "i@rimorsoft.com"
+                }
+            ],
+            "description": "Is a PHP library designed to simplify and automate the creation of URL-friendly slugs based on Laravel.",
+            "keywords": [
+                "eloquent",
+                "laravel",
+                "slug",
+                "slugable",
+                "sluggable"
+            ],
+            "support": {
+                "issues": "https://github.com/italofantone/sluggable/issues",
+                "source": "https://github.com/italofantone/sluggable/tree/v2.0.0"
+            },
+            "time": "2025-04-29T03:50:54+00:00"
         },
         {
             "name": "laravel/fortify",

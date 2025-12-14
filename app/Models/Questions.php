@@ -4,12 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Italofantone\Sluggable\Sluggable;
 use App\Traits\HasHearts;
 
 class Questions extends Model
 {
     /** @use HasFactory<\Database\Factories\QuestionsFactory> */
-    use HasFactory, HasHearts;
+    use HasFactory, HasHearts, Sluggable;
 
     protected $fillable = [
         'user_id',
